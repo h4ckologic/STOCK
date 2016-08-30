@@ -12,7 +12,7 @@ stox = 'AAPL', 'GOOGL', 'MSFT' , 'AMZN' , 'EBAY'
 
 def fetchdata(stock):
     filename = stock+'.txt'
-    x = urllib2.urlopen("http://chartapi.finance.yahoo.com/instrument/1.0/"+stock+"/chartdata;type=quote;range=1d/csv")
+    x = urllib2.urlopen("http://chartapi.finance.yahoo.com/instrument/1.0/"+stock+"/chartdata;type=quote;range=1y/csv")
     val = x.read()
     splitsrc = val.split('\n')
 
@@ -29,7 +29,7 @@ def fetchdata(stock):
     
 def graph(stock) :
     filename = stock+'.txt'
-    timestamp,close,high,low,_open,volume = np.loadtxt(filename,unpack = True , delimiter=',' , converters={0:lambda ts : datetime.datetime.fromtimestamp(ts)})
+    date,close,high,low,_open,volume = np.loadtxt(filename,unpack = True , delimiter=',' , converters={0:mdates.strpdate2num('%Y%m%d')})
     fig = plt.figure(figsize=(10,7))
     ax1 = plt.subplot2grid((40,4), (0,0), rowspan=40, colspan=40)
     plt.title(stock)
@@ -38,7 +38,7 @@ def graph(stock) :
     ax1.plot(date,close)
     ax1.plot(date,_open)
 
-    ax1.xaxis.set_major_formatter(mdates.DateFormatter('%Y%m%d%H%M%S'))	
+    ax1.xaxis.set_major_formatter(mdates.DateFormatter('%Y%m%d'))	
     
     print "The Graph for "+stock+"is being plotted"
 
