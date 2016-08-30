@@ -40,7 +40,7 @@ def graph(stock) :
 
     ax1.xaxis.set_major_formatter(mdates.DateFormatter('%Y%m%d'))	
     
-    print "The Graph for "+stock+"is being plotted"
+    print "The Graph for "+stock+ "is being plotted"
 
     plt.grid(True)
     plt.show()
